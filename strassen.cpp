@@ -225,7 +225,45 @@ for(i=0;i<n/2;i++)
 
 return;
 }
-
+int max(int a,int b)
+{
+	if(a>b)
+	return a;
+	return b;
+}
+int upper_pow_of_2(int n)
+{
+	int i=1;
+	while(n>i)
+	{
+		i=i<<1;
+		if(i<0)
+			return -1;
+	}
+	return i;
+}
+void strassen_multiplication(int a[SIZE][SIZE],int b[SIZE][SIZE],int c[SIZE][SIZE],int r1,int c1,int c2)
+{
+	int n=upper_pow_of_2(max(r1,max(c1,c2))),i,j;
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			if(i>=r1||j>=c1)
+				a[i][j]=0;
+		}
+	}
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			if(i>=c1||j>=c2)
+				b[i][j]=0;
+		}
+	}
+	strassen_mult(a,b,c,n);
+	//c now contain a*b in first sub matrix r1*c2 rest are 0
+}
 
 int main()
 {
